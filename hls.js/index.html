@@ -43,7 +43,14 @@ function play(){
   var playUrl = inputTxt.value;
   if(Hls.isSupported()) {
     var video = document.getElementById('video');
-    var hls = new Hls();
+    var config = {
+    fetchSetup: function(context, initParams) {
+        // Always send cookies, even for cross-origin calls.
+        initParams.credentials = 'include';
+        return new Request(context.url,initParams);
+      }
+    }
+    var hls = new Hls(config);
     hls.loadSource(playUrl);
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED,function() {

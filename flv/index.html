@@ -1,44 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>flv.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+    <meta name="renderer" content="webkit">
+<style>
+#input{
+	width: 100%;
+	height: 80px;
+}
+#playBtn{
+  width: 100%;
+  height: 40px;
+}
+</style>
 </head>
 <body>
 <script src="flv.min.js"></script>
-<input type="text" id="inputTxt" style="width: 100%;">
+
+<textarea id="input"></textarea>
 <button id="playBtn">播放</button>
 <video id="videoElement"></video>
 <script>
-    if (flvjs.isSupported()) {
-        inputTxt.addEventListener('keypress', function(e){
-            if(e.keyCode == 13){
-                play();
-            }
-        }, false);
-
-        playBtn.addEventListener('click', play, false);
-        function play(){
-            var playUrl = inputTxt.value;
-            var videoElement = document.getElementById('videoElement');
-            var flvPlayer = flvjs.createPlayer({
-                type: 'flv',
-                isLive: true,
-                url: playUrl
-            }, {
-                enableStashBuffer: false,
-                stashInitialSize: 128,
-                enableWorker: true
-            });
-            flvPlayer.attachMediaElement(videoElement);
-            flvPlayer.load();
-            flvPlayer.play();
+var playBtn = document.getElementById('playBtn');
+var inputTxt = document.getElementById('input');
+if (flvjs.isSupported()) {
+    inputTxt.addEventListener('click', function(){
+        this.select();
+    });
+    inputTxt.addEventListener('keypress', function(e){
+        if(e.keyCode == 13){
+            play();
         }
+    }, false);
 
-
-    }else{
-        alert('Not supported.');
+    playBtn.addEventListener('click', play, false);
+    function play(){
+        var playUrl = inputTxt.value;
+        var videoElement = document.getElementById('videoElement');
+        var flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            isLive: true,
+            url: playUrl
+        }, {
+            enableStashBuffer: false,
+            stashInitialSize: 128,
+            enableWorker: true
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
     }
+}else{
+    alert('Not supported.');
+}
 </script>
 
 </body>

@@ -1,18 +1,35 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>clappr播放器</title>
+    <meta charset="utf-8">
+    <title>clappr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+    <meta name="renderer" content="webkit">
+<style>
+#input{
+	width: 100%;
+	height: 80px;
+}
+#playBtn{
+  width: 100%;
+  height: 40px;
+}
+</style>
 </head>
 <body>
   <script src="./clappr.min.js"></script>
-<input type="text" id="inputTxt" style="width: 100%;">
+
+  <textarea id="input"></textarea>
 <button id="playBtn">播放</button><br>
 <div id="player"></div>
 <script>
 var playBtn = document.getElementById('playBtn');
-var inputTxt = document.getElementById('inputTxt');
+var inputTxt = document.getElementById('input');
 
+inputTxt.addEventListener('click', function(){
+  this.select();
+});
 inputTxt.addEventListener('keypress', function(e){
   if(e.keyCode == 13){
     play();

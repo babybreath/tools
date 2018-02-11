@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>broadway</title>
     <meta charset="utf-8">
-    <style type="text/css">
-        html, body {
-            background-color: #111;
-            text-align: center;
-        }
-    </style>
+    <title>broadway</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+    <meta name="renderer" content="webkit">
+<style>
+#input{
+    width: 100%;
+    height: 80px;
+}
+#playBtn{
+    width: 100%;
+    height: 40px;
+}
+</style>
 
 </head>
-<input type="text" id="url" placeholder="这里输入ws的地址"><button id="start">开始</button>
-<br >
+<textarea id="input" placeholder="这里输入ws的地址"></textarea>
+<button id="playBtn">播放</button>
 
 <script src="./Decoder.js"></script>
 <script src="./YUVCanvas.js"></script>
 <script src="./Player.js"></script>
 <script>
-    var defaultUrl = 'ws://'+document.location.hostname+':8082/';
-    var start = document.getElementById('start');
-    var urlInput = document.getElementById('url');
-    urlInput.value = defaultUrl;
+    var start = document.getElementById('playBtn');
+    var inputTxt = document.getElementById('input');
+    inputTxt.addEventListener('click', function(){
+    this.select();
+    });
+
     var player = new Player({
         size: {
             width: 640,
@@ -30,7 +39,7 @@
     });
     document.body.appendChild(player.canvas);
     function startEvent(){
-        var url = urlInput.value;
+        var url = inputTxt.value;
         var client = new WebSocket(url);
         client.binaryType = 'arraybuffer';
         client.onclose = function(){

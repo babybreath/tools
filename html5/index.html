@@ -1,126 +1,108 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>html5播放</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" >
-    <meta name="format-detection" content="telephone=no" >
+    <meta charset="utf-8">
+    <title>html5原生播放</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
     <meta name="renderer" content="webkit">
+<style>
+#input{
+	width: 100%;
+	height: 80px;
+}
+#playBtn{
+  width: 100%;
+  height: 40px;
+}
+</style>
 
 </head>
 <body>
-<input type="text" id="inputTxt" style="width: 100%;">
+<textarea id="input"></textarea>
 <button id="playBtn">播放</button><br>
 <video controls="controls" id="video"></video>
+
 <script>
     var playBtn = document.getElementById('playBtn');
-    var inputTxt = document.getElementById('inputTxt');
+    var inputTxt = document.getElementById('input');
+inputTxt.addEventListener('click', function(){
+  this.select();
+});
+inputTxt.addEventListener('keypress', function(e){
+    if(e.keyCode == 13){
+        play();
+    }
+}, false);
 
-    var video = document.getElementById('video');
+playBtn.addEventListener('click', play, false);
+
+function play(){
+    var playUrl = inputTxt.value;
+    video.src = playUrl;
+    video.load();
+    video.play();
+}
+
+
+/**
+ * video事件日志
+ */
+ function videoLog(video, ignore, callback){
+    if(!video){
+        return 'need parameter video';
+    }
     var EVENT = {
-        'loadstart': function(){
-            console.log('loadstart...当浏览器开始查找音频/视频时...');
-        },
-        'durationchange': function(){
-            console.log('durationchange...当音频/视频的时长已更改时...');
-        },
-        'loadedmetadata': function(){
-            console.log('loadedmetadata...当浏览器已加载音频/视频的元数据时...');
-        },
-        'loadeddata': function(){
-            console.log('loadeddata...当浏览器已加载音频/视频的当前帧时...');
-        },
-        'progress': function(){
-            console.log('progress...当浏览器正在下载音频/视频时...');
-        },
-        'canplay': function(){
-            console.log('canplay...当浏览器可以播放音频/视频时...');
-        },
-        'canplaythrough': function(){
-            console.log('canplaythrough...当浏览器可在不因缓冲而停顿的情况下进行播放时...');
-        },
-        'abort': function(){
-            console.log('abort...当音频/视频的加载已放弃时...');
-        },
-        'emptied': function(){
-            console.log('emptied...当目前的播放列表为空时...');
-        },
-        'ended': function(){
-            console.log('ended...当目前的播放列表已结束时...');
-        },
-        'pause': function(){
-            console.log('pause...当音频/视频已暂停时...');
-        },
-        'play': function(){
-            console.log('play...当音频/视频已开始或不再暂停时...');
-        },
-        'playing': function(){
-            console.log('playing...当音频/视频在已因缓冲而暂停或停止后已就绪时...');
-        },
-        'ratechange': function(){
-            console.log('ratechange...当音频/视频的播放速度已更改时...');
-        },
-        'seeked': function(){
-            console.log('seeked...当用户已移动/跳跃到音频/视频中的新位置时...');
-        },
-        'seeking': function(){
-            console.log('seeking...当用户开始移动/跳跃到音频/视频中的新位置时...');
-        },
-        'stalled': function(){
-            console.log('stalled...当浏览器尝试获取媒体数据，但数据不可用时...');
-        },
-        'suspend': function(){
-            console.log('suspend...当浏览器刻意不获取媒体数据时...');
-        },
-        'timeupdate': function(){
-            //console.log('timeupdate...当目前的播放位置已更改时...');
-        },
-        'volumechange': function(){
-            console.log('volumechange...当音量已更改时...');
-        },
-        'waiting': function(){
-            console.log('waiting...当视频由于需要缓冲下一帧而停止...');
-        },
-        'error': function(e){
-            console.log(e);
-            console.log('error...当在音频/视频加载期间发生错误时...');
-        }
-
+        'loadstart': 'loadstart...当浏览器开始查找音频/视频时...',
+        'durationchange': 'durationchange...当音频/视频的时长已更改时...',
+        'loadedmetadata': 'loadedmetadata...当浏览器已加载音频/视频的元数据时...',
+        'loadeddata': 'loadeddata...当浏览器已加载音频/视频的当前帧时...',
+        'progress': 'progress...当浏览器正在下载音频/视频时...',
+        'canplay': 'canplay...当浏览器可以播放音频/视频时...',
+        'canplaythrough': 'canplaythrough...当浏览器可在不因缓冲而停顿的情况下进行播放时...',
+        'abort': 'abort...当音频/视频的加载已放弃时...',
+        'emptied': 'emptied...当目前的播放列表为空时...',
+        'ended': 'ended...当目前的播放列表已结束时...',
+        'pause': 'pause...当音频/视频已暂停时...',
+        'play': 'play...当音频/视频已开始或不再暂停时...',
+        'playing': 'playing...当音频/视频在已因缓冲而暂停或停止后已就绪时...',
+        'ratechange': 'ratechange...当音频/视频的播放速度已更改时...',
+        'seeked': 'seeked...当用户已移动/跳跃到音频/视频中的新位置时...',
+        'seeking': 'seeking...当用户开始移动/跳跃到音频/视频中的新位置时...',
+        'stalled': 'stalled...当浏览器尝试获取媒体数据，但数据不可用时...',
+        'suspend': 'suspend...当浏览器刻意不获取媒体数据时...',
+        'timeupdate': 'timeupdate...当目前的播放位置已更改时...',
+        'volumechange': 'volumechange...当音量已更改时...',
+        'waiting': 'waiting...当视频由于需要缓冲下一帧而停止...',
+        'error': 'error...当在音频/视频加载期间发生错误时...'
     };
-    for(var i in EVENT){
-        video.addEventListener( i, EVENT[i], false);
-    }
-
-//    console.log = function(str){
-//        var debug = document.getElementById('debug');
-//        if(!debug){
-//            debug = document.createElement('div');
-//            debug.id = 'debug';
-//            // debug.style.position = 'fixed';
-//            // debug.style.top = '0';
-//            document.body.appendChild(debug);
-//        }
-//        var p = document.createElement('p');
-//        var t = document.createTextNode(str);
-//        p.appendChild(t);
-//        debug.appendChild(p);
-//    }
-
-
-    inputTxt.addEventListener('keypress', function(e){
-        if(e.keyCode == 13){
-            play();
+    if(ignore && ignore instanceof Array){
+        var ignoreEventName = ignore.shift();
+        while(ignoreEventName && EVENT[ignoreEventName]){
+            delete EVENT[ignoreEventName];
+            ignoreEventName = ignore.shift();
         }
-    }, false);
-
-    playBtn.addEventListener('click', play, false);
-
-    function play(){
-        var playUrl = inputTxt.value;
-        video.src = playUrl;
-        video.play();
     }
+    for(var i in EVENT){
+        (function(){
+            var eventName = i;
+            video.addEventListener(eventName, function(){
+                console.log(EVENT[eventName]);
+                callback && callback(EVENT[eventName]);
+            }, false);
+        })()
+    }
+}
+
+var videoDom = document.getElementsByTagName('video')[0];
+videoLog(videoDom, ['timeupdate'], function(str){
+    var div = document.createElement('DIV');
+    div.innerHTML = new Date() + JSON.stringify(str);
+    document.body.appendChild(div);
+});
+
+
+
 
 
 </script>

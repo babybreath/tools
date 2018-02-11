@@ -1,11 +1,16 @@
 <html>
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-<meta name="format-detection" content="telphone=no" />
-<title>二维码</title>
+  <meta charset="utf-8">
+  <title>生成二维码</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+  <meta name="renderer" content="webkit">
 <style>
 #main{text-align: center;}
+#input{
+	width: 100%;
+	height: 80px;
+}
 .qrBox{
 	display: inline-block;
 	margin: 50px 10px 0 10px;
@@ -27,7 +32,7 @@
 <body>
 <script src="qrcode.min.js"></script>
 <div id="main">
-	<input type="text" id="input" style="width: 100%;">
+	<textarea id="input"></textarea>
 	<div class="qrBox" id="QRM"></div>
 	<div class="qrBox" id="QRL"></div>
 	<div class="qrBox" id="QRH"></div>
@@ -43,17 +48,9 @@ var QRL = document.getElementById('QRL');
 var QRH = document.getElementById('QRH');
 var QRQ = document.getElementById('QRQ');
 function inputEvent(e){
-	var currKey=0,e=e||event;
-	currKey=e.keyCode||e.which||e.charCode;
-	if(currKey == 13){
-		makeCode();
-	}
+  makeCode();
 }
-if(input.addEventListener){
-	input.addEventListener('keyup', inputEvent, false)
-}else{
-	input.attachEvent('onkeyup',inputEvent)
-}
+input.addEventListener('input', inputEvent, false);
 
 
 function makeCode(){
@@ -107,7 +104,7 @@ QRQ.addEventListener('webkitAnimationEnd', function(){
 	QRQ.classList.remove('xuanzhuang');
 }, false);
 
-
 </script>
+
 </body>
 </html>

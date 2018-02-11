@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSMpeg Stream Client</title>
     <meta charset="utf-8">
-    <style type="text/css">
-        html, body {
-            background-color: #111;
-            text-align: center;
-        }
-    </style>
+    <title>jsmpeg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+    <meta name="renderer" content="webkit">
+<style>
+#input{
+    width: 100%;
+    height: 80px;
+}
+#playBtn{
+    width: 100%;
+    height: 40px;
+}
+</style>
 
 </head>
-<input type="text" id="url" placeholder="这里输入ws的地址"><button id="start">开始</button>
+<textarea id="input" placeholder="这里输入ws的地址"></textarea>
+<button id="playBtn">播放</button><br>
 <canvas id="video-canvas"></canvas>
+
 <script type="text/javascript" src="jsmpeg.min.js"></script>
 <script type="text/javascript">
-    var defaultUrl = 'ws://'+document.location.hostname+':8082/';
-    var start = document.getElementById('start');
-    var urlInput = document.getElementById('url');
-    urlInput.value = defaultUrl;
+    var start = document.getElementById('playBtn');
+    var inputTxt = document.getElementById('input');
+    inputTxt.addEventListener('click', function(){
+    this.select();
+    });
     function startEvent(){
-        var url = urlInput.value;
+        var url = inputTxt.value;
         var canvas = document.getElementById('video-canvas');
         var player = new JSMpeg.Player(url, {canvas: canvas});
     }
     start.addEventListener('click', startEvent, false);
-
-
 </script>
 </body>
 </html>

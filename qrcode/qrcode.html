@@ -1,0 +1,113 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta name="format-detection" content="telphone=no" />
+<title>二维码</title>
+<style>
+#main{text-align: center;}
+.qrBox{
+	display: inline-block;
+	margin: 50px 10px 0 10px;
+}
+.xuanzhuang{
+	animation: myfirst 0.5s;
+	-webkit-animation: myfirst 0.5s;
+}
+@keyframes myfirst{
+	0% { transform:rotate(0deg) scale(0.1,0.1); }
+	100% { transform:rotate(360deg) scale(1,1); }
+}
+@-webkit-keyframes myfirst{
+	0% { transform:rotate(0deg) scale(0.1,0.1); }
+	100% { transform:rotate(360deg) scale(1,1); }
+}
+</style>
+</head>
+<body>
+<script src="qrcode.min.js"></script>
+<div id="main">
+	<input type="text" id="input" style="width: 100%;">
+	<div class="qrBox" id="QRM"></div>
+	<div class="qrBox" id="QRL"></div>
+	<div class="qrBox" id="QRH"></div>
+	<div class="qrBox" id="QRQ"></div>
+</div>
+<canvas class="hide" id="can" width="240" height="240"></canvas>
+
+<script>
+var input = document.getElementById('input');
+input.focus();
+var QRM = document.getElementById('QRM');
+var QRL = document.getElementById('QRL');
+var QRH = document.getElementById('QRH');
+var QRQ = document.getElementById('QRQ');
+function inputEvent(e){
+	var currKey=0,e=e||event;
+	currKey=e.keyCode||e.which||e.charCode;
+	if(currKey == 13){
+		makeCode();
+	}
+}
+if(input.addEventListener){
+	input.addEventListener('keyup', inputEvent, false)
+}else{
+	input.attachEvent('onkeyup',inputEvent)
+}
+
+
+function makeCode(){
+	QRM.innerHTML = '';
+	QRL.innerHTML = '';
+	QRH.innerHTML = '';
+	QRQ.innerHTML = '';
+	QRM.classList.add('xuanzhuang');
+	QRL.classList.add('xuanzhuang');
+	QRH.classList.add('xuanzhuang');
+	QRQ.classList.add('xuanzhuang');
+
+	var qrCode = input.value;
+
+	var qrcode = new QRCode( QRM, {
+		width : 220,
+		height : 220,
+        correctLevel : QRCode.CorrectLevel.M
+	});
+	qrcode.makeCode(qrCode);
+	var qrcode = new QRCode( QRL, {
+		width : 220,
+		height : 220,
+        correctLevel : QRCode.CorrectLevel.L
+	});
+	qrcode.makeCode(qrCode);
+	var qrcode = new QRCode( QRH, {
+		width : 220,
+		height : 220,
+        correctLevel : QRCode.CorrectLevel.H
+	});
+	qrcode.makeCode(qrCode);
+	var qrcode = new QRCode( QRQ, {
+		width : 220,
+		height : 220,
+        correctLevel : QRCode.CorrectLevel.Q
+	});
+	qrcode.makeCode(qrCode);
+
+}
+QRM.addEventListener('webkitAnimationEnd', function(){
+	QRM.classList.remove('xuanzhuang');
+}, false);
+QRL.addEventListener('webkitAnimationEnd', function(){
+	QRL.classList.remove('xuanzhuang');
+}, false);
+QRH.addEventListener('webkitAnimationEnd', function(){
+	QRH.classList.remove('xuanzhuang');
+}, false);
+QRQ.addEventListener('webkitAnimationEnd', function(){
+	QRQ.classList.remove('xuanzhuang');
+}, false);
+
+
+</script>
+</body>
+</html>

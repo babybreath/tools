@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>broadway</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        html, body {
+            background-color: #111;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<input type="text" id="url" placeholder="这里输入ws的地址"><button id="start">开始</button>
+<br >
+
+<script src="./Decoder.js"></script>
+<script src="./YUVCanvas.js"></script>
+<script src="./Player.js"></script>
+<script>
+    var defaultUrl = 'ws://'+document.location.hostname+':8082/';
+    var start = document.getElementById('start');
+    var urlInput = document.getElementById('url');
+    urlInput.value = defaultUrl;
+    var player = new Player({
+        size: {
+            width: 640,
+            height: 320
+        }
+    });
+    document.body.appendChild(player.canvas);
+    function startEvent(){
+        var url = urlInput.value;
+        var client = new WebSocket(url);
+        client.binaryType = 'arraybuffer';
+        client.onclose = function(){
+            console.log('ws open.');
+        }
+        client.onclose = function(){
+            console.log('ws close.');
+        }
+        client.onerror = function(){
+            console.log('ws error.');
+        }
+        client.onmessage = function(e){
+            console.log('ws message.');
+            var data = new Uint8Array(e.data);
+            player.decode(data);
+        }
+    }
+    start.addEventListener('click', startEvent, false);
+
+
+</script>
+</body>
+</html>

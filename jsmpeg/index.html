@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSMpeg Stream Client</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        html, body {
+            background-color: #111;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<input type="text" id="url" placeholder="这里输入ws的地址"><button id="start">开始</button>
+<canvas id="video-canvas"></canvas>
+<script type="text/javascript" src="jsmpeg.min.js"></script>
+<script type="text/javascript">
+    var defaultUrl = 'ws://'+document.location.hostname+':8082/';
+    var start = document.getElementById('start');
+    var urlInput = document.getElementById('url');
+    urlInput.value = defaultUrl;
+    function startEvent(){
+        var url = urlInput.value;
+        var canvas = document.getElementById('video-canvas');
+        var player = new JSMpeg.Player(url, {canvas: canvas});
+    }
+    start.addEventListener('click', startEvent, false);
+
+
+</script>
+</body>
+</html>

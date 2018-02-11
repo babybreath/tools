@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>hls.js播放hls</title>
+</head>
+<body>
+<script src="./hls.min.js"></script>
+<input type="text" id="inputTxt" style="width: 100%;">
+<button id="playBtn">播放</button><br>
+<video controls="controls" id="video"></video>
+<script>
+var playBtn = document.getElementById('playBtn');
+var inputTxt = document.getElementById('inputTxt');
+
+inputTxt.addEventListener('keypress', function(e){
+  if(e.keyCode == 13){
+    play();
+  }
+}, false);
+
+playBtn.addEventListener('click', play, false);
+
+function play(){
+  var playUrl = inputTxt.value;
+  if(Hls.isSupported()) {
+    var video = document.getElementById('video');
+    var hls = new Hls();
+    hls.loadSource(playUrl);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      video.play();
+  });
+}else{
+  alert('not support.')
+}
+}
+
+
+</script>
+</body>
+</html>

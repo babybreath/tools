@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="flv.min.js"></script>
+<input type="text" id="inputTxt" style="width: 100%;">
+<button id="playBtn">播放</button>
+<video id="videoElement"></video>
+<script>
+    if (flvjs.isSupported()) {
+        inputTxt.addEventListener('keypress', function(e){
+            if(e.keyCode == 13){
+                play();
+            }
+        }, false);
+
+        playBtn.addEventListener('click', play, false);
+        function play(){
+            var playUrl = inputTxt.value;
+            var videoElement = document.getElementById('videoElement');
+            var flvPlayer = flvjs.createPlayer({
+                type: 'flv',
+                isLive: true,
+                url: playUrl
+            }, {
+                enableStashBuffer: false,
+                stashInitialSize: 128,
+                enableWorker: true
+            });
+            flvPlayer.attachMediaElement(videoElement);
+            flvPlayer.load();
+            flvPlayer.play();
+        }
+
+
+    }else{
+        alert('Not supported.');
+    }
+</script>
+
+</body>
+</html>

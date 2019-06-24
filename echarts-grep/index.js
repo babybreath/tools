@@ -1,6 +1,18 @@
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('main'));
 var option = {
+  toolbox: {
+    show: true,
+    feature: {
+      dataZoom: {
+        yAxisIndex: 'none',
+      },
+      dataView: { readOnly: false },
+      magicType: { type: ['line', 'bar'] },
+      restore: {},
+      saveAsImage: {},
+    },
+  },
   tooltip: {
     trigger: 'axis',
     axisPointer: {

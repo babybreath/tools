@@ -56,7 +56,7 @@ function generateOptions(text) {
   var substrStart = 0;
   var name = '';
   try {
-    dateIndex = tempArray[0].search(/\d{2,4}[-|/]\d{2}[-|/]\d{2}/);
+    dateIndex = tempArray[0].search(/\d{2,4}[-|/]\d{2}/);
   } catch (e) {}
   if (dateIndex > -1) {
     substrStart = dateIndex;

@@ -47,6 +47,7 @@ var option = {
   series: [],
 };
 
+var totalNumber = 0;
 function generateOptions(text) {
   var xAxisArray = [];
   var dataArr = [];
@@ -67,6 +68,7 @@ function generateOptions(text) {
   for (let i = 0; i < tempArrayLength; i += 2) {
     xAxisArray.push(tempArray[i].substr(substrStart));
     dataArr.push(tempArray[i + 1]);
+    totalNumber += Number(tempArray[i + 1]);
   }
 
   option.legend.data.push(name);
@@ -82,10 +84,12 @@ function generateOptions(text) {
   return option;
 }
 
+var total = document.getElementById('total');
 var input = document.querySelector('.input');
 function inputEvent(e) {
   var sourceText = input.value;
   myChart.setOption(generateOptions(sourceText));
+  total.innerHTML = totalNumber;
 }
 
 input.addEventListener('keyup', inputEvent, false);

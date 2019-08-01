@@ -3,15 +3,19 @@ body {
   margin: 0;
   padding: 0;
 }
-.title{
+.title {
   text-align: center;
 }
-.input{
+.input {
   display: block;
   margin: 20px auto;
   width: 80%;
   height: 80px;
 }
-#main{
+.total-container {
+  margin: 20px auto;
+  width: 80%;
+}
+#main {
   margin: 0 auto;
 }

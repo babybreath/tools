@@ -68,7 +68,9 @@ function generateOptions(text) {
   for (let i = 0; i < tempArrayLength; i += 2) {
     xAxisArray.push(tempArray[i].substr(substrStart));
     dataArr.push(tempArray[i + 1]);
-    totalNumber += Number(tempArray[i + 1]);
+    if (!isNaN(Number(tempArray[i + 1]))) {
+      totalNumber += Number(tempArray[i + 1]);
+    }
   }
 
   option.legend.data.push(name);
@@ -87,6 +89,7 @@ function generateOptions(text) {
 var total = document.getElementById('total');
 var input = document.querySelector('.input');
 function inputEvent(e) {
+  totalNumber = 0;
   var sourceText = input.value;
   myChart.setOption(generateOptions(sourceText));
   total.innerHTML = totalNumber;

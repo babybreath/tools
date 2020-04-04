@@ -10,8 +10,12 @@
   </head>
   <body>
     <h2 class="title">输入 grep -c 后的结果</h2>
+    <div class="total-container"><input type="number" id="multiple" placeholder="输入倍数"/></div>
     <textarea class="input"></textarea>
     <div class="total-container">总数:<sapn id="total"></sapn></div>
+    <div class="total-container">项数:<sapn id="itemSum"></sapn></div>
+    <div class="total-container">平均值:<sapn id="average"></sapn></div>
+    <div class="total-container">最高值:<sapn id="max"></sapn></div>
     <div id="main" style="width: 80%;height:500px;"></div>
     <script src="./index.js"></script>
   </body>
